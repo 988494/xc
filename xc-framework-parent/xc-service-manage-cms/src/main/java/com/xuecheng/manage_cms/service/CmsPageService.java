@@ -6,9 +6,9 @@ import com.xuecheng.framework.domain.cms.response.CmsCode;
 import com.xuecheng.framework.domain.cms.response.CmsPageResult;
 import com.xuecheng.framework.exception.ExceptionCast;
 import com.xuecheng.framework.model.response.*;
+import com.xuecheng.manage_cms.dao.CmsConfigRepository;
 import com.xuecheng.manage_cms.dao.CmsPageRepository;
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.util.StringUtils.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.*;
 import org.springframework.stereotype.Service;
@@ -118,6 +118,10 @@ public class CmsPageService {
                 //更新物理路径
                 reslut.setPagePhysicalPath(cmsPage.getPagePhysicalPath());
             }
+            if(StringUtils.isNotEmpty(cmsPage.getDataUrl())){
+                //更新数据url
+                reslut.setDataUrl(cmsPage.getDataUrl());
+            }
             CmsPage save = cmsPageRepository.save(reslut);
             return  new CmsPageResult(CommonCode.SUCCESS,save);
         }
@@ -141,4 +145,5 @@ public class CmsPageService {
            return new ResponseResult(CommonCode.FAIL);
         }
     }
+
 }
