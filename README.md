@@ -1,4 +1,21 @@
 # xc
+## 一、vue中传参
+### 发起方
+edit(pageId){
+        this.$router.push({ path: '/cms/page/edit/'+pageId,query:{
+            page: this.params.page,
+            templateId: this.params.templateId,
+            siteId: this.params.siteId}})
+      },
+### 返回发起方
+go_back(){
+        this.$router.push({
+          path: '/cms/page/list', query: {
+            page: this.$route.query.page,
+            templateId: this.$route.query.templateId,
+            siteId:this.$route.query.siteId
+          }
+        })
 ## 五、test-rabbitmq-consumer与test-rabbitmq-producer为RabbitMQ测试
 api目录下为原始api操作RabbitMQ</br>
 config与springboot目录下为springboot整合RabbitMQ，其中springboot整合RabbitMQ
