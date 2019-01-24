@@ -18,9 +18,10 @@
         <module>./xc-framework-utils</module>
         <module>./xc-service-api</module>
         <module>./xc-service-manage-cms</module>
-        <module>test-freemarker</module>
-        <module>test-rabbitmq-producer</module>
-        <module>test-rabbitmq-consumer</module>
+        <module>./test-freemarker</module>
+        <module>./test-rabbitmq-producer</module>
+        <module>./test-rabbitmq-consumer</module>
+        <module>./xc-service-manage-cms-client</module>
     </modules>
     <properties>
         <java.version>1.8</java.version>
@@ -84,6 +85,11 @@
                 <groupId>org.springframework.security</groupId>
                 <artifactId>spring-security-jwt</artifactId>
                 <version>1.0.9.RELEASE</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.commons</groupId>
+                <artifactId>commons-io</artifactId>
+                <version>1.3.2</version>
             </dependency>
            <!-- <dependency>
                 <groupId>mysql</groupId>

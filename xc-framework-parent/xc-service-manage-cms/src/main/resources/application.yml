@@ -7,3 +7,10 @@ spring:
     mongodb:
       database: xc-cms
       uri: mongodb://127.0.0.1:27017
+  rabbitmq:
+    host: 120.79.93.16
+    port: 5672
+    username: guest
+    password: guest
+    virtual-host: /
+    #cms客户端监控的队列名称（不同的客户端监控的队列不能重复）

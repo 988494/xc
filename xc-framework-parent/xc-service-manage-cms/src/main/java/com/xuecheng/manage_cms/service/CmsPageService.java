@@ -38,6 +38,10 @@ public class CmsPageService {
         if(StringUtils.isNotEmpty(queryPageRequest.getPageAliase())){
             cmsPage.setPageAliase(queryPageRequest.getPageAliase());
         }
+        //模板id
+        if(StringUtils.isNotEmpty(queryPageRequest.getTemplateId())){
+            cmsPage.setTemplateId(queryPageRequest.getTemplateId());
+        }
         //创建条件实例
         Example<CmsPage> example = Example.of(cmsPage, exampleMatcher);
         //站点id

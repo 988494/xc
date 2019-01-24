@@ -33,4 +33,17 @@ public interface CmsPageControllerApi {
     //删除页面
     @ApiOperation("根据id删除页面")
     public ResponseResult delete(String id);
+
+    //页发布
+    @ApiOperation("页面发布")
+    public ResponseResult post(String id);
+
+    //查询所有模板
+    @ApiOperation("查询所有站点")
+    public QueryResponseResult listTemplate() ;
+
+    //查询所有站点
+    @ApiOperation("查询所有模板")
+    public QueryResponseResult listSite() ;
+
 }

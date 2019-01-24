@@ -7,13 +7,18 @@ import com.xuecheng.framework.domain.cms.response.CmsPageResult;
 import com.xuecheng.framework.model.response.CommonCode;
 import com.xuecheng.framework.model.response.QueryResponseResult;
 import com.xuecheng.framework.model.response.ResponseResult;
+import com.xuecheng.manage_cms.service.CmsPagePostService;
 import com.xuecheng.manage_cms.service.CmsPageService;
+import com.xuecheng.manage_cms.service.CmsSiteService;
+import com.xuecheng.manage_cms.service.CmsTemplateService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import javax.management.Query;
 
 /**
  * @author 杨郑兴
@@ -27,6 +32,12 @@ public class CmsPageController implements CmsPageControllerApi {
 
     @Autowired
     private CmsPageService cmsPageService;
+    @Autowired
+    private CmsPagePostService cmsPagePostService;
+    @Autowired
+    private CmsTemplateService cmsTemplateService;
+    @Autowired
+    private CmsSiteService cmsSiteService;
 
     @Override
     @ApiOperation("分页查询页面列表")
@@ -70,5 +81,29 @@ public class CmsPageController implements CmsPageControllerApi {
     public ResponseResult delete(@PathVariable("id") String id) {
         ResponseResult responseResult = cmsPageService.delete(id);
         return responseResult;
+    }
+
+    @Override
+    @ApiOperation("页面发布")
+    @PostMapping("/postPage/{pageId}")
+    public ResponseResult post(@PathVariable("pageId")String pageId) {
+        ResponseResult responseResult = cmsPagePostService.post(pageId);
+        return responseResult;
+    }
+
+    @Override
+    @ApiOperation("查询所有模板")
+    @GetMapping("/template/list")
+    public QueryResponseResult listTemplate() {
+        QueryResponseResult list = cmsTemplateService.list();
+        return list;
+    }
+
+    @Override
+    @ApiOperation("查询所有站点")
+    @GetMapping("/site/list")
+    public QueryResponseResult listSite() {
+        QueryResponseResult list = cmsSiteService.list();
+        return list;
     }
 }
