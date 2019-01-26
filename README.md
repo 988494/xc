@@ -16,7 +16,7 @@ go_back(){
             siteId:this.$route.query.siteId
           }
         })
-## 五、test-rabbitmq-consumer与test-rabbitmq-producer为RabbitMQ测试
+## 二、test-rabbitmq-consumer与test-rabbitmq-producer为RabbitMQ测试
 api目录下为原始api操作RabbitMQ</br>
 config与springboot目录下为springboot整合RabbitMQ，其中springboot整合RabbitMQ
 的生产者代码在test-rabbitmq-producer项目下的测试代码中的rabbitmq.springboot.ProductEmailTopicsSpringbootTest测试类
@@ -46,3 +46,14 @@ config与springboot目录下为springboot整合RabbitMQ，其中springboot整合
 #### 消费者方
 由于springboot整合了RabbitMQ,消费者只需要执行一步即可
 1.监听并接受消息(@RabbitListener(queues ={}))
+## 三、docker 安装fastdfs
+###安装并启动tracker
+docker run -dti --network=host --name tracker -v /var/fdfs/tracker:/var/fdfs delron/fastdfs tracker 
+###安装并启动storage
+docker run -dti --network=host --name storage -e TRACKER_SERVER=10.211.55.5:22122 -v /var/fdfs/storage:/var/fdfs delron/fastdfs storage
+### 查看tracker与storage是否正常启动
+docker ps
+### docker 安装fastdfs需要注意的
+1、需要开放防火强端口22122、23000（storage server 挂在或者配置文件中默认设置的23000端口）
+2、如果是阿里云。则还需要加入安全组件，放行端口22122、23000（storage server 挂在或者配置文件中默认设置的23000端口）
+
