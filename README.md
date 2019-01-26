@@ -54,6 +54,6 @@ docker run -dti --network=host --name storage -e TRACKER_SERVER=10.211.55.5:2212
 ### 查看tracker与storage是否正常启动
 docker ps
 ### docker 安装fastdfs需要注意的
-1、需要开放防火强端口22122、23000（storage server 挂在或者配置文件中默认设置的23000端口）
+1、需要开放防火强端口22122、23000（storage server 挂在或者配置文件中默认设置的23000端口）</br>
 2、如果是阿里云。则还需要加入安全组件，放行端口22122、23000（storage server 挂在或者配置文件中默认设置的23000端口）
 
