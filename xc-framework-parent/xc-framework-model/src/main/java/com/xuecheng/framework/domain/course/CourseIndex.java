@@ -8,9 +8,6 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
 
-/**
- * Created by admin on 208/2/0.
- */
 @Data
 @Entity
 @Table(name="course_index")

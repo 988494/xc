@@ -24,7 +24,7 @@ public class CmsPageService {
         if(queryPageRequest == null){
             queryPageRequest = new QueryPageRequest();
         }
-        //条件匹配器         
+        //条件匹配器         children
         //页面名称模糊查询，需要自定义字符串的匹配器实现模糊查询
         ExampleMatcher exampleMatcher = ExampleMatcher.matching()
                 .withMatcher("pageAliase",ExampleMatcher.GenericPropertyMatchers.contains());//包含,pageAliase值进行模糊查询

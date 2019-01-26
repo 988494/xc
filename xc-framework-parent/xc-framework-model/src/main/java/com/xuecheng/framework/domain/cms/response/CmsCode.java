@@ -20,7 +20,8 @@ public enum CmsCode implements ResultCode {
     CMS_TEMPLATE_DATA_NULL(false,24009,"页面模板数据为null！"),
     CMS_TEMPLATE_NULL(false,24010,"没有页面模板"),
     CMS_SITE_NULL(false,24011,"没有站点"),
-    CMS_PAGE_PATH_NOTEXISTS(false,24012,"页面的物理路径的物理路径异常");
+    CMS_PAGE_PATH_NOTEXISTS(false,24012,"页面的物理路径的物理路径异常"),
+    CMS_SYS_DICTIONARY_DTYPE_NULL(false,24013,"页面的物理路径的物理路径异常");
     //操作代码
     boolean success;
     //操作代码

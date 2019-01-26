@@ -7,9 +7,6 @@ import org.hibernate.annotations.GenericGenerator;
 import javax.persistence.*;
 import java.io.Serializable;
 
-/**
- * Created by admin on 208/2/0.
- */
 @Data
 @Entity
 @Table(name="course_base")
@@ -34,5 +31,4 @@ public class CourseBase implements Serializable {
     private String companyId;
     @Column(name="user_id")
     private String userId;
-
 }
