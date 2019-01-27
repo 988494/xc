@@ -86,7 +86,26 @@ mime.types  </br>
 storage.conf -->storage server启动的配置文件</br>
 storage_ids.conf  </br>
 tracker.conf -->tracker server启动的配置文件</br>
-### 3.5 启动tracker、storage-->(可是写成脚本运行，看个人喜好，演示就用命令好了)
+### 3.5 配置tracker.conf、storage.conf 
+
+#### tracker.conf
+vim tracker.conf</br>
+base_path=/home/fastdfs/tracker</br>
+#### storage.conf 
+vim storage.conf </br>
+group_name=group1 </br>
+base_path=/home/yuqing/FastDFS</br>
+store_path0=/home/yuqing/FastDFS </br>
+#如果有多个挂载磁盘则定义多个store_path，如下 </br>
+#store_path1=..... </br>
+#store_path2=...... </br>
+tracker_server=192.168.101.3:22122   #配置 tracker服务器:IP </br>
+#如果有多个则配置多个tracker </br>
+tracker_server=192.168.101.4:22122 </br>
+#配置http端口 </br>
+http.server_port=80</br>
+等等......其他自行百度
+### 3.6 启动tracker、storage-->(可是写成脚本运行，看个人喜好，演示就用命令好了)
 /usr/bin/fdfs_trackerd ./tracker.conf restart
 /usr/bin/fdfs_storaged ./storage.conf restart
 ### 3.6 代码测试
