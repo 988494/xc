@@ -86,7 +86,7 @@ mime.types  </br>
 storage.conf -->storage server启动的配置文件</br>
 storage_ids.conf  </br>
 tracker.conf -->tracker server启动的配置文件</br>
-### 3.5 配置tracker.conf、storage.conf 
+### 3.5 配置tracker.conf、storage.conf (这里说下：tracker与storage的)
 
 #### tracker.conf
 vim tracker.conf</br>
