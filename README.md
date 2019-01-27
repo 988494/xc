@@ -106,15 +106,37 @@ tracker_server=192.168.101.4:22122 </br>
 http.server_port=80</br>
 等等......其他自行百度
 ### 3.6 启动tracker、storage-->(可是写成脚本运行，看个人喜好，演示就用命令好了)
-/usr/bin/fdfs_trackerd ./tracker.conf restart
-/usr/bin/fdfs_storaged ./storage.conf restart
-### 3.6 代码测试
-测试代码看test-fastdfs这个项目
+/usr/bin/fdfs_trackerd ./tracker.conf restart</br>
+/usr/bin/fdfs_storaged ./storage.conf restart</br>
+### 3.7 代码测试
+### 3.8 FastDFS-nginx-module
+将 FastDFS-nginx-module_v1.16.tar.gz 传至 fastDFS 的 storage 服务器的</br>
+/root下，执行如下命令： </br>
+cd /root</br>
+tar -zxvf FastDFS-nginx-module_v1.16.tar.gz </br>
+cd FastDFS-nginx-module/src</br> 
+修改 mod_FastDFS.conf </br>
+vi /root/FastDFS-nginx-module/src/mod_FastDFS.conf </br>
+base_path=/home/fastdfs #文件存储路径storage的储存路径</br>
+tracker_server=192.168.101.3:22122 </br>
+tracker_server=192.168.101.4:22122 </br>
+url_have_group_name=true  #url中包含group名称 </br>
+store_path0=/home/fastdfs/storage   #指定文件存储路径 </br>
+#如果有多个 </br>
+### 3.8 安装nginx
+wget http://nginx.org/download/nginx-1.15.7.tar.gz</br>
+解压nginx-1.8.0.tar.gz </br>
+进入nginx-1.8.0目录，执行如下配置命令： </br>
+测试代码看test-fastdfs这个项目</br>
+./configure --prefix=/usr/local/nginx --add-module=/root/FastDFS-nginx-module/src 
+make </br>
+make install </br>
+### 3.9 启动nginx 这里就不说了
 ## 四、另一种安装方式：docker安装fastdfs
 ### 3.1、说明
-这里fastdfs的tracker、storage是用docker安装
+这里fastdfs的tracker、storage是用docker安装</br>
 ### 3.2、安装并启动tracker
-docker run -dti --network=host --name tracker -v /var/fdfs/tracker:/var/fdfs delron/fastdfs tracker 
+docker run -dti --network=host --name tracker -v /var/fdfs/tracker:/var/fdfs delron/fastdfs tracker </br>
 ### 3.3、安装并启动storage
 docker run -dti --network=host --name storage -e TRACKER_SERVER=10.211.55.5:22122 -v /var/fdfs/storage:/var/fdfs delron/fastdfs storage
 ### 查看tracker与storage是否正常启动
