@@ -128,7 +128,7 @@ wget http://nginx.org/download/nginx-1.15.7.tar.gz</br>
 解压nginx-1.8.0.tar.gz </br>
 进入nginx-1.8.0目录，执行如下配置命令： </br>
 测试代码看test-fastdfs这个项目</br>
-./configure --prefix=/usr/local/nginx --add-module=/root/FastDFS-nginx-module/src 
+./configure --prefix=/usr/local/nginx --add-module=/root/FastDFS-nginx-module/src </br>
 make </br>
 make install </br>
 ### 3.9 启动nginx 这里就不说了
