@@ -115,6 +115,7 @@ http.server_port=80</br>
 cd /root</br>
 tar -zxvf FastDFS-nginx-module_v1.16.tar.gz </br>
 cd FastDFS-nginx-module/src</br> 
+修改src/config文件,将/usr/local/路径改为/usr/</br> 
 修改 mod_FastDFS.conf </br>
 vi /root/FastDFS-nginx-module/src/mod_FastDFS.conf </br>
 base_path=/home/fastdfs #文件存储路径storage的储存路径</br>
@@ -123,6 +124,10 @@ tracker_server=192.168.101.4:22122 </br>
 url_have_group_name=true  #url中包含group名称 </br>
 store_path0=/home/fastdfs/storage   #指定文件存储路径 </br>
 #如果有多个 </br>
+将FastDFS-nginx-module/src下的mod_FastDFS.conf拷贝至/etc/fdfs/下 </br>
+cp mod_FastDFS.conf /etc/fdfs/ </br>
+将libfdfsclient.so拷贝至/usr/lib下 </br>
+cp /usr/lib64/libfdfsclient.so /usr/lib/ </br>
 ### 3.8 安装nginx
 wget http://nginx.org/download/nginx-1.15.7.tar.gz</br>
 解压nginx-1.8.0.tar.gz </br>
