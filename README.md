@@ -54,6 +54,13 @@ docker run -dti --network=host --name tracker -v /var/fdfs/tracker:/var/fdfs del
 ### 3.3、安装并启动storage
 docker run -dti --network=host --name storage -e TRACKER_SERVER=10.211.55.5:22122 -v /var/fdfs/storage:/var/fdfs delron/fastdfs storage
 ### 3.4、安装nginx+fastdfs-nginx-module
+yum -y install gcc</br>
+yum -y install gcc-c++</br>
+yum -y install openssl openssl-devel</br>
+yum -y install zlib-devel</br>
+yum -y install pcre-devel</br>
+yum install -y unzip zip</br>
+https://sourceforge.net/projects/fastdfs/files/FastDFS%20Nginx%20Module%20Source%20Code/
 第一步：上传nginx的源码文件并解压，很简单的，这里不说了
 ### 查看tracker与storage是否正常启动
 docker ps
