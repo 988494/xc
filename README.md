@@ -137,6 +137,10 @@ wget http://nginx.org/download/nginx-1.15.7.tar.gz</br>
 make </br>
 make install </br>
 ### 3.9 启动nginx 这里就不说了
+vim /etc/profile</br>
+export PATH=$PATH:/usr/local/nginx/sbin</br>
+source /etc/profile
+nginx -v
 ## 四、另一种安装方式：docker安装fastdfs
 ### 3.1、说明
 这里fastdfs的tracker、storage是用docker安装</br>
