@@ -46,14 +46,19 @@ config与springboot目录下为springboot整合RabbitMQ，其中springboot整合
 #### 消费者方
 由于springboot整合了RabbitMQ,消费者只需要执行一步即可
 1.监听并接受消息(@RabbitListener(queues ={}))
-## 三、docker 安装fastdfs
-###安装并启动tracker
+## 三、docker安装fastdfs+nginx+fastdfs-nginx-module
+### 3.1、说明
+这里fastdfs的tracker、storage是用docker安装nginx+fastdfs-nginx-module是直接源码安装（为了后期改配置方便）
+### 3.2、安装并启动tracker
 docker run -dti --network=host --name tracker -v /var/fdfs/tracker:/var/fdfs delron/fastdfs tracker 
-###安装并启动storage
+### 3.3、安装并启动storage
 docker run -dti --network=host --name storage -e TRACKER_SERVER=10.211.55.5:22122 -v /var/fdfs/storage:/var/fdfs delron/fastdfs storage
+### 3.4、安装nginx+fastdfs-nginx-module
+第一步：上传nginx的源码文件并解压，很简单的，这里不说了
 ### 查看tracker与storage是否正常启动
 docker ps
 ### docker 安装fastdfs需要注意的
 1、需要开放防火强端口22122、23000（storage server 挂在或者配置文件中默认设置的23000端口）</br>
 2、如果是阿里云。则还需要加入安全组件，放行端口22122、23000（storage server 挂在或者配置文件中默认设置的23000端口）
 
+http://bbs.chinaunix.net/thread-4162818-1-1.html
