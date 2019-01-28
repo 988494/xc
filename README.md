@@ -91,8 +91,12 @@ storage.conf -->storage server启动的配置文件</br>
 storage_ids.conf  </br>
 tracker.conf -->tracker server启动的配置文件</br>
 ### 3.5 配置tracker.conf、storage.conf (这里说下：tracker与storage的)
-/home/fastdfs/tracker
-/home/fastdfs/storage
+mkdir -p /home/fastdfs/tracker
+mkdir -p /home/fastdfs/storage
+mkdir -p /home/fastdfs/client
+mkdir -p /home/fastdfs/storage_data
+mkdir -p /home/fastdfs/fastdfs-nginx-module
+把这个几个目录新建起来，下面会用到
 
 #### tracker.conf
 cd /etc/fdfs/</br>
