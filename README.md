@@ -76,6 +76,10 @@ tar -zxvf FastDFS_v5.05.tar.gz </br>
 cd FastDFS </br>
 ./make.sh 编译 </br>
 ./make.sh install  安装 </br>
+装成功后，将安装目录下的conf下的文件拷贝到/etc/fdfs/下</br>
+cd conf/</br>
+cp * /etc/fdfs</br>
+
 #### 目录说明
 编译安装完成后</br>
 cd ./FastDFS/config 目录下有一个文件，则成功了</br>
@@ -87,15 +91,20 @@ storage.conf -->storage server启动的配置文件</br>
 storage_ids.conf  </br>
 tracker.conf -->tracker server启动的配置文件</br>
 ### 3.5 配置tracker.conf、storage.conf (这里说下：tracker与storage的)
+/home/fastdfs/tracker
+/home/fastdfs/storage
 
 #### tracker.conf
+cd /etc/fdfs/</br>
 vim tracker.conf</br>
 base_path=/home/fastdfs/tracker</br>
+
 #### storage.conf 
+cd /etc/fdfs/</br>
 vim storage.conf </br>
 group_name=group1 </br>
-base_path=/home/yuqing/FastDFS</br>
-store_path0=/home/yuqing/FastDFS </br>
+base_path=/home/fastdfs/storage（日志）</br>
+store_path0=/home/fastdfs/storage_data（文件） </br>
 #如果有多个挂载磁盘则定义多个store_path，如下 </br>
 #store_path1=..... </br>
 #store_path2=...... </br>
@@ -103,7 +112,7 @@ tracker_server=192.168.101.3:22122   #配置 tracker服务器:IP </br>
 #如果有多个则配置多个tracker </br>
 tracker_server=192.168.101.4:22122 </br>
 #配置http端口 </br>
-http.server_port=80</br>
+http.server_port=80（一定要是要是与niginx监听的端口号相同）</br>
 等等......其他自行百度
 ### 3.6 启动tracker、storage-->(可是写成脚本运行，看个人喜好，演示就用命令好了)
 /usr/bin/fdfs_trackerd ./tracker.conf restart</br>
@@ -118,11 +127,11 @@ cd FastDFS-nginx-module/src</br>
 修改src/config文件,将/usr/local/路径改为/usr/</br> 
 修改 mod_FastDFS.conf </br>
 vi /root/FastDFS-nginx-module/src/mod_FastDFS.conf </br>
-base_path=/home/fastdfs #文件存储路径storage的储存路径</br>
+base_path=/home/fastdfs/fastdfs-nginx-module（日志路径）</br>
 tracker_server=192.168.101.3:22122 </br>
 tracker_server=192.168.101.4:22122 </br>
 url_have_group_name=true  #url中包含group名称 </br>
-store_path0=/home/fastdfs/storage   #指定文件存储路径 </br>
+store_path0=/home/fastdfs/storage_data(定文件存储路径，数据data的父路径) </br>
 #如果有多个 </br>
 将FastDFS-nginx-module/src下的mod_FastDFS.conf拷贝至/etc/fdfs/下 </br>
 cp mod_FastDFS.conf /etc/fdfs/ </br>
@@ -130,26 +139,29 @@ cp mod_FastDFS.conf /etc/fdfs/ </br>
 cp /usr/lib64/libfdfsclient.so /usr/lib/ </br>
 ### 3.8 安装nginx
 wget http://nginx.org/download/nginx-1.15.7.tar.gz</br>
-解压nginx-1.8.0.tar.gz </br>
-进入nginx-1.8.0目录，执行如下配置命令： </br>
+解压nginx-1.15.7.tar.gz </br>
+进入nginx-1.15.7目录，执行如下配置命令： </br>
 测试代码看test-fastdfs这个项目</br>
 ./configure --prefix=/usr/local/nginx --add-module=/root/FastDFS-nginx-module/src </br>
 make </br>
 make install </br>
+这里是把nginx源码安装到/usr/local/nginx（--prefix=/usr/local/nginx），所有配置nginx.conf是在/usr/local/nginx/conf/nginx.conf,
+而不是这里的源文件，把源文件删除，防止弄糊涂
+rm -rf nginx-1.15.7
 ### 3.9 启动nginx 这里就不说了
 vim /etc/profile</br>
 export PATH=$PATH:/usr/local/nginx/sbin</br>
 source /etc/profile
 nginx -v
+
 ## 四、另一种安装方式：docker安装fastdfs
-### 3.1、说明
+### 4.1、说明
 这里fastdfs的tracker、storage是用docker安装</br>
-### 3.2、安装并启动tracker
+### 4.2、安装并启动tracker
 docker run -dti --network=host --name tracker -v /var/fdfs/tracker:/var/fdfs delron/fastdfs tracker
-### 3.3、安装并启动storage 
+### 4.3、安装并启动storage 
 docker run -dti --network=host --name storage -e TRACKER_SERVER=10.211.55.5:22122 -v /var/fdfs/storage:/var/fdfs delron/fastdfs storage
-apt-get update</br>
-apt-get install vim</br>
+### 4.4、安装nginx+FastDFS-nginx-module模块，看3.8-3.9即可
 ### 查看tracker与storage是否正常启动
 docker ps
 ### docker 安装fastdfs需要注意的
