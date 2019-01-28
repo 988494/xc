@@ -148,7 +148,8 @@ nginx -v
 docker run -dti --network=host --name tracker -v /var/fdfs/tracker:/var/fdfs delron/fastdfs tracker
 ### 3.3、安装并启动storage 
 docker run -dti --network=host --name storage -e TRACKER_SERVER=10.211.55.5:22122 -v /var/fdfs/storage:/var/fdfs delron/fastdfs storage
-
+apt-get update</br>
+apt-get install vim</br>
 ### 查看tracker与storage是否正常启动
 docker ps
 ### docker 安装fastdfs需要注意的
