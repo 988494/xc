@@ -3,6 +3,7 @@ package com.xuecheng.manage_course.sevice;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.xuecheng.framework.domain.course.CourseBase;
+import com.xuecheng.framework.domain.course.CoursePic;
 import com.xuecheng.framework.domain.course.Teachplan;
 import com.xuecheng.framework.domain.course.ext.CourseInfo;
 import com.xuecheng.framework.domain.course.ext.TeachplanNode;
@@ -13,10 +14,7 @@ import com.xuecheng.framework.model.response.CommonCode;
 import com.xuecheng.framework.model.response.QueryResponseResult;
 import com.xuecheng.framework.model.response.QueryResult;
 import com.xuecheng.framework.model.response.ResponseResult;
-import com.xuecheng.manage_course.dao.CourseBaseRepository;
-import com.xuecheng.manage_course.dao.CourseMapper;
-import com.xuecheng.manage_course.dao.TeachplanMapper;
-import com.xuecheng.manage_course.dao.TeachplanRepository;
+import com.xuecheng.manage_course.dao.*;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -36,6 +34,8 @@ public class CourseService {
     private CourseBaseRepository courseBaseRepository;
     @Autowired
     private CourseMapper courseMapper;
+    @Autowired
+    private CoursePicRepository coursePicRepository;
 
     //查询课程计划
     public TeachplanNode findTeachplanList(String courseId){
@@ -145,6 +145,53 @@ public class CourseService {
         courseBaseRepository.save(courseBase);
         return new ResponseResult(CommonCode.SUCCESS);
     }
-    //查询课程分类
 
+    //添加课程图片
+    @Transactional
+    public ResponseResult saveCoursePic(String courseId, String pic) {
+        if(StringUtils.isEmpty(courseId)){
+            //课程id为null
+            ExceptionCast.cast(CourseCode.COURSE_PUBLISH_COURSEIDISNULL);
+        }
+        Optional<CoursePic> optional = coursePicRepository.findById(courseId);
+        CoursePic coursePic = null;
+        if(optional.isPresent()){
+            coursePic = optional.get();
+        }
+        if(coursePic ==null){
+            coursePic = new CoursePic();
+        }
+        coursePic.setCourseid(courseId);
+        coursePic.setPic(pic);
+        //保存课程图片
+        coursePicRepository.save(coursePic);
+        return new ResponseResult(CommonCode.SUCCESS);
+    }
+
+    //获取课程基础信息
+    public CoursePic findCoursepic(String courseId) {
+        if(StringUtils.isEmpty(courseId)){
+            ExceptionCast.cast(CourseCode.COURSE_PUBLISH_COURSEIDISNULL);
+        }
+        Optional<CoursePic> optional = coursePicRepository.findById(courseId);
+        if(optional.isPresent()){
+            return optional.get();
+        }
+        return null;
+    }
+
+    //删除课程图片
+    @Transactional
+    public ResponseResult deleteCoursePic(String courseId) {
+        if(StringUtils.isEmpty(courseId)){
+            ExceptionCast.cast(CourseCode.COURSE_PUBLISH_COURSEIDISNULL);
+        }
+        long flg = coursePicRepository.deleteByCourseid(courseId);
+        //删除成功返回1否则返回0
+        if(flg == 1){
+            return new ResponseResult(CommonCode.SUCCESS);
+        }else {
+            return new ResponseResult(CommonCode.FAIL);
+        }
+    }
 }

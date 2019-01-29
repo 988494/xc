@@ -18,10 +18,9 @@
         <module>./xc-framework-utils</module>
         <module>./xc-service-api</module>
         <module>./xc-service-manage-cms</module>
-        <module>./test-freemarker</module>
-        <module>./test-rabbitmq-producer</module>
-        <module>./test-rabbitmq-consumer</module>
         <module>./xc-service-manage-cms-client</module>
+        <module>./xc-service-base-filesystem</module>
+        <module>./test-fastdfs</module>
     </modules>
     <properties>
         <java.version>1.8</java.version>
@@ -80,6 +79,11 @@
                 <groupId>net.lingala.zip4j</groupId>
                 <artifactId>zip4j</artifactId>
                 <version>1.3.2</version>
+            </dependency>
+            <dependency>
+                <groupId>net.oschina.zcx7878</groupId>
+                <artifactId>fastdfs-client-java</artifactId>
+                <version>1.27.0.0</version>
             </dependency>
             <dependency>
                 <groupId>org.springframework.security</groupId>
