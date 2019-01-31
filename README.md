@@ -173,7 +173,7 @@ docker ps
 2、如果是阿里云。则还需要加入安全组件，放行端口22122、23000（storage server 挂在或者配置文件中默认设置的23000端口）
 ## 五、eureka
 ## 六 ribbon
-## feign
+## Ⅶ feign
 ### Feign工作原理如下： 
 1、 启动类添加@EnableFeignClients注解，Spring会扫描标记了@FeignClient注解的接口，并生成此接口的代理 对象</br>
 2、 @FeignClient(value = XcServiceList.XC_SERVICE_MANAGE_CMS)即指定了cms的服务名称，Feign会从注册中 心获取cms服务列表，并通过负载均衡算法进行服务调用</br>
