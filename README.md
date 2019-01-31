@@ -171,5 +171,14 @@ docker ps
 ### docker 安装fastdfs需要注意的
 1、需要开放防火强端口22122、23000（storage server 挂在或者配置文件中默认设置的23000端口）</br>
 2、如果是阿里云。则还需要加入安全组件，放行端口22122、23000（storage server 挂在或者配置文件中默认设置的23000端口）
-
-http://bbs.chinaunix.net/thread-4162818-1-1.html
+## 五、eureka
+## 六 ribbon
+## feign
+### Feign工作原理如下： 
+1、 启动类添加@EnableFeignClients注解，Spring会扫描标记了@FeignClient注解的接口，并生成此接口的代理 对象</br>
+2、 @FeignClient(value = XcServiceList.XC_SERVICE_MANAGE_CMS)即指定了cms的服务名称，Feign会从注册中 心获取cms服务列表，并通过负载均衡算法进行服务调用</br>
+3、在接口方法 中使用注解@GetMapping("/cms/page/get/{id}")，指定调用的url，Feign将根据url进行远程调用</br>
+### Feign注意点 
+SpringCloud对Feign进行了增强兼容了SpringMVC的注解 ，我们在使用SpringMVC的注解时需要注意： </br>
+1、feignClient接口 有参数在参数必须加@PathVariable("XXX")和@RequestParam("XXX") </br>
+2、feignClient返回值为复杂对象时其类型必须有无参构造函数</br>
