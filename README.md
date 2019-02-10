@@ -182,3 +182,7 @@ docker ps
 SpringCloud对Feign进行了增强兼容了SpringMVC的注解 ，我们在使用SpringMVC的注解时需要注意： </br>
 1、feignClient接口 有参数在参数必须加@PathVariable("XXX")和@RequestParam("XXX") </br>
 2、feignClient返回值为复杂对象时其类型必须有无参构造函数</br>
+
+## 五 elasticsearch 
+### es自定义词典注意（很重要）
+ik自定义词典有一个严重的大问题就是,dic文档的第一行不会被读出来,记住以后自定义词典从第二行开始，第一行空格就是了
