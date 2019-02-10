@@ -184,5 +184,69 @@ SpringCloud对Feign进行了增强兼容了SpringMVC的注解 ，我们在使用
 2、feignClient返回值为复杂对象时其类型必须有无参构造函数</br>
 
 ## 五 elasticsearch 
+### 使用postman或curl这样的工具创建：
+put http://localhost:9200/索引库名称</br>
+{</br>
+"settings":{</br>
+"index":{</br>
+"number_of_shards":1,</br>
+"number_of_replicas":0</br>
+}</br>
+}</br>
+}</br>
+number_of_shards：设置分片的数量，在集群中通常设置多个分片，表示一个索引库将拆分成多片分别存储不同</br>
+的结点，提高了ES的处理能力和高可用性，入门程序使用单机环境，这里设置为1。</br>
+number_of_replicas：设置副本的数量，设置副本是为了提高ES的高可靠性，单机环境设置为0</br>
+
+### 创建映射
+发送：post http://localhost:9200/索引库名称/类型名称/_mapping</br>
+创建类型为xc_course的映射，共包括三个字段：name、description、studymondel</br>
+由于ES6.0版本还没有将type彻底删除，所以暂时把type起一个没有特殊意义的名字。</br>
+post 请求：http://localhost:9200/xc_course/doc/_mapping</br>
+表示：在xc_course索引库下的doc类型下创建映射。doc是类型名，可以自定义，在ES6.0中要弱化类型的概念，</br>
+给它起一个没有具体业务意义的名称。</br>
+映射创建成功，查看head界面：</br>
+{
+"properties": {</br>
+"name": {</br>
+"type": "text"</br>
+},</br>
+"description": {</br>
+"type": "text"</br>
+},</br>
+"studymodel": {</br>
+"type": "keyword"</br>
+}</br>
+}</br>
+}</br>
+
+### 创建文档
+ES中的文档相当于MySQL数据库表中的记录。</br>
+发送：put 或Post http://localhost:9200/xc_course/doc/id值</br>
+（如果不指定id值ES会自动生成ID）</br>
+http://localhost:9200/xc_course/doc/4028e58161bcf7f40161bcf8b77c0000</br>
+使用postman测试：</br>
+{</br>
+"name":"Bootstrap开发框架",</br>
+"description":"Bootstrap是由Twitter推出的一个前台页面开发框架，在行业之中使用较为广泛。此开发框架包</br>
+含了大量的CSS、JS程序代码，可以帮助开发者（尤其是不擅长页面开发的程序人员）轻松的实现一个不受浏览器限制的</br>
+精美界面效果。",</br>
+"studymodel":"201001"</br>
+}</br>
+
+### 测试当前索引库使用的分词器：
+post 发送：localhost:9200/_analyze</br>
+{"text":"测试分词器，后边是测试内容：spring cloud实战"}</br>
+
 ### es自定义词典注意（很重要）
-ik自定义词典有一个严重的大问题就是,dic文档的第一行不会被读出来,记住以后自定义词典从第二行开始，第一行空格就是了
+1.xxx.dic文件保存为utf-8格式</br>
+2.ik自定义词典有一个严重的大问题就是,dic文档的第一行不会被读出来,记住以后自定义词典从第二行开始，第一行空格就是了
+### ik分词器有两种分词模式：ik_max_word和ik_smart模式
+1、ik_max_word</br>
+会将文本做最细粒度的拆分，比如会将“中华人民共和国人民大会堂”拆分为“中华人民共和国、中华人民、中华、</br>
+华人、人民共和国、人民、共和国、大会堂、大会、会堂等词语。</br>
+2、ik_smart</br>
+会做最粗粒度的拆分，比如会将“中华人民共和国人民大会堂”拆分为中华人民共和国、人民大会堂。</br>
+测试两种分词模式：</br>
+发送：post localhost:9200/_analyze</br>
+{"text":"中华人民共和国人民大会堂","analyzer":"ik_smart" }</br>
