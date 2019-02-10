@@ -250,3 +250,5 @@ post 发送：localhost:9200/_analyze</br>
 测试两种分词模式：</br>
 发送：post localhost:9200/_analyze</br>
 {"text":"中华人民共和国人民大会堂","analyzer":"ik_smart" }</br>
+### 映射注意问题
+映射创建成功可以添加新字段，已有字段不允许更新type的类型。如果真要改只能删除整个索引，包括数据
